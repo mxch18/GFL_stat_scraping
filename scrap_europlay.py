@@ -43,8 +43,8 @@ if __name__ == '__main__':
 
     browser.implicitly_wait(10)  # seconds
 
-    player_to_find = "M. Achiepi"  # one result
-    # player_to_find = "D. Johnson"  # multi results
+    player_to_find = "M.Achiepi"  # one result
+    # player_to_find = "D.Johnson"  # multi results
 
     # go to EuroPlayers American Football home page
     uri_homepage = 'https://europlayers.com/Default.aspx?SportId=1'
@@ -87,7 +87,7 @@ if __name__ == '__main__':
         browser.my_get(adv_search_uri)
 
         player_to_find_split = player_to_find.split('.')
-        surname_to_search = player_to_find_split[1].lstrip()
+        surname_to_search = player_to_find_split[-1].lstrip()
         letter_to_search = player_to_find_split[0]
 
         field_player_name = browser.find_element(
