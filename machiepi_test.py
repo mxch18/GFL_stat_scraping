@@ -56,6 +56,52 @@ try:
     # leagues['gfl']['2021']['Dresden Monarchs'] =
     #     https://stats.gfl.info/gfl/2021/dm.htm
 
+    # get roster from every team, from every year, for both leagues
+    # //table/tbody/tr/td/table for rushing table
+    # //table/tbody/tr/td/p/table for all the rest of offensive tables
+    # //center[.//font[text() = 'Overall Defensive Statistics']]/table[2]
+
+    # start with 2022 Dusseldorf Panthers for now
+    uri_dp_season_2022 = leagues['gfl']['2022']['Duesseldorf Panther']
+
+    print(f"Going to {uri_dp_season_2022}")
+    browser.get(uri_dp_season_2022)
+    print("Reached")
+
+    offense_tables = browser.find_elements(
+        By.XPATH, '//table/tbody/tr/td/table')
+    offense_tables.extend(
+        browser.find_elements(By.XPATH, '//table/tbody/tr/td/p/table')
+    )
+    defense_table = browser.find_element(
+            By.XPATH,
+            '//center[.//font[text() = "Overall Defensive Statistics"]]/table[2]'
+        )
+
+    player_font = []
+
+    for offense_table in offense_tables:
+        player_font.extend(
+            offense_table.find_elements(
+                By.XPATH, './tbody/tr[@bgcolor="#ffffff"]/td[1]/font'
+            )
+        )
+
+    player_font.extend(
+        defense_table.find_elements(
+            By.XPATH, './tbody/tr[@bgcolor="#ffffff"]/td[2]/font'
+        )
+    )
+
+    player_names = []
+    for font in player_font:
+        is_player_name = re.findall(r"[A-Z]\.", font.text)
+        if is_player_name:
+            player_names.append(font.text)
+
+    player_names = list(dict.fromkeys(player_names))
+
+
 except SelExceptions.NoSuchElementException:
     raise
 finally:
