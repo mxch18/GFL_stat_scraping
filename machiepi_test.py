@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 import selenium.common.exceptions as SelExceptions
 import re
 import footballJargon
+import json
 
 # set headless to 1
 options = FirefoxOptions()
@@ -61,46 +62,52 @@ try:
     # //table/tbody/tr/td/p/table for all the rest of offensive tables
     # //center[.//font[text() = 'Overall Defensive Statistics']]/table[2]
 
-    # start with 2022 Dusseldorf Panthers for now
-    uri_dp_season_2022 = leagues['gfl']['2022']['Duesseldorf Panther']
+    for (league, years) in leagues.items():
+        for (year, teams) in years.items():
+            for (team, uri) in teams.items():
+                print(f"Looking for {team}'s {year} roster")
+                print(f"Going to {uri}")
+                browser.get(uri)
+                print("Reached")
+                offense_tables = browser.find_elements(
+                    By.XPATH, '//table/tbody/tr/td/table')
+                offense_tables.extend(
+                    browser.find_elements(
+                        By.XPATH, '//table/tbody/tr/td/p/table')
+                )
+                defense_table = browser.find_element(
+                        By.XPATH,
+                        '//center[.//font[text() = "Overall Defensive Statistics"]]/table[2]'
+                    )
 
-    print(f"Going to {uri_dp_season_2022}")
-    browser.get(uri_dp_season_2022)
-    print("Reached")
+                player_font = []
 
-    offense_tables = browser.find_elements(
-        By.XPATH, '//table/tbody/tr/td/table')
-    offense_tables.extend(
-        browser.find_elements(By.XPATH, '//table/tbody/tr/td/p/table')
-    )
-    defense_table = browser.find_element(
-            By.XPATH,
-            '//center[.//font[text() = "Overall Defensive Statistics"]]/table[2]'
-        )
+                for offense_table in offense_tables:
+                    player_font.extend(
+                        offense_table.find_elements(
+                            By.XPATH, './tbody/tr[@bgcolor="#ffffff"]/td[1]/font'
+                        )
+                    )
 
-    player_font = []
+                player_font.extend(
+                    defense_table.find_elements(
+                        By.XPATH, './tbody/tr[@bgcolor="#ffffff"]/td[2]/font'
+                    )
+                )
 
-    for offense_table in offense_tables:
-        player_font.extend(
-            offense_table.find_elements(
-                By.XPATH, './tbody/tr[@bgcolor="#ffffff"]/td[1]/font'
-            )
-        )
+                player_names = []
+                for font in player_font:
+                    is_player_name = re.findall(r"[A-Z]\.", font.text)
+                    if is_player_name:
+                        player_names.append(font.text)
 
-    player_font.extend(
-        defense_table.find_elements(
-            By.XPATH, './tbody/tr[@bgcolor="#ffffff"]/td[2]/font'
-        )
-    )
+                player_names = list(dict.fromkeys(player_names))
+                print(f"Found {len(player_names)} players.")
 
-    player_names = []
-    for font in player_font:
-        is_player_name = re.findall(r"[A-Z]\.", font.text)
-        if is_player_name:
-            player_names.append(font.text)
+                leagues[league][year][team] = player_names
 
-    player_names = list(dict.fromkeys(player_names))
-
+        with open("leagues.json", 'w') as file_store:
+            json.dump(leagues, file_store, indent=2)
 
 except SelExceptions.NoSuchElementException:
     raise
