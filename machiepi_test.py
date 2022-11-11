@@ -97,7 +97,7 @@ try:
 
                 player_names = []
                 for font in player_font:
-                    is_player_name = re.findall(r"[A-Z]\.", font.text)
+                    is_player_name = re.findall(r"^[A-z]\.", font.text)
                     if is_player_name:
                         player_names.append(font.text)
 
