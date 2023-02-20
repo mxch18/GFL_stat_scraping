@@ -23,4 +23,9 @@ if __name__ == '__main__':
 
     retard = retardationTest(browser)
     retard.go_to_page('https://stats.gfl.info/')
+
+    retard2 = retardationTest(browser)
+    retard2.go_to_page('https://realpython.com/python-super/')
+
     retard.close()
+    retard2.close()
