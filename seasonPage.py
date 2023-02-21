@@ -1,4 +1,5 @@
 from myPage import MyPage
+from gamePage import GamePage
 import re
 from selenium.webdriver.common.by import By
 
@@ -32,6 +33,25 @@ class SeasonPage(MyPage):
         )
 
         for link in game_links:
-            pass
+            link_to_game = link.find_element(
+                By.XPATH, "./td[4]/font/a").get_attribute('href')
+            print(link_to_game)
+            game_pages.append(
+                GamePage(
+                    link_to_game,
+                    self.driver,
+                    )
+            )
 
         return game_pages
+
+
+if __name__ == '__main__':
+    from myWebDriver import MyWebDriver
+
+    browser = MyWebDriver()
+
+    sp = SeasonPage("https://stats.gfl.info/gfl/2022/confstat.htm", browser)
+    sp.go_to()
+
+    [print(g) for g in sp.get_games()]
