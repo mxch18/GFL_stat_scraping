@@ -5,8 +5,9 @@ import re
 
 
 class GamePage(MyPage):
-    def __init__(self, url, webdrv, date=None, location="", team1="", team2=""):
+    def __init__(self, url, webdrv, season, date=None, location="", team1="", team2=""):
         super().__init__(url, webdrv)
+        self.season = season
         self.date = date
         self.location = location
         self.team1 = team1
