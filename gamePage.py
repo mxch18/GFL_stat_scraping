@@ -14,4 +14,6 @@ class GamePage(MyPage):
         self.team2 = team2
 
     def __str__(self):
-        return super().__str__()+f"Date:{self.date}\nLocation:{self.location}\nTeam1:{self.team1}\nTeam2:{self.team2}"
+        return super().__str__()+f"\nSeason:{self.season}\nDate:{self.date}"\
+         f"\nLocation:{self.location}\nTeam1:{self.team1}\nTeam2:{self.team2}"
+
