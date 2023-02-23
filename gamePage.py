@@ -28,3 +28,13 @@ class GamePage(MyPage):
         self.date = datetime.strptime(self.date, "%d.%m.%Y")
 
 
+if __name__ == '__main__':
+    from myWebDriver import MyWebDriver
+
+    browser = MyWebDriver()
+
+    gp = GamePage("https://stats.gfl.info/gfl/2022/gbshupr.htm",
+                  browser, ('gfl', 2022))
+    print(gp)
+    gp.go_to()
+    print(gp)
