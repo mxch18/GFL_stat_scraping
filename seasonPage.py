@@ -35,7 +35,6 @@ class SeasonPage(MyPage):
         for link in game_links:
             link_to_game = link.find_element(
                 By.XPATH, "./td[4]/font/a").get_attribute('href')
-            print(link_to_game)
             game_pages.append(
                 GamePage(
                     link_to_game,
