@@ -17,3 +17,14 @@ class GamePage(MyPage):
         return super().__str__()+f"\nSeason:{self.season}\nDate:{self.date}"\
          f"\nLocation:{self.location}\nTeam1:{self.team1}\nTeam2:{self.team2}"
 
+    def go_to(self):
+        super().go_to()
+        # fill in the potential blanks with data directly from the page
+        # date, location, team1, team2
+        page_title = self.driver.find_element(By.XPATH, "//font/h3/font").text
+        self.team1, self.team2, self.date = re.split(
+            "\s(?:vs)\s|\s\(", page_title)
+        self.date = self.date[:-1:1]  # removes last character
+        self.date = datetime.strptime(self.date, "%d.%m.%Y")
+
+
