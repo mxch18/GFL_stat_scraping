@@ -39,6 +39,7 @@ class SeasonPage(MyPage):
                 GamePage(
                     link_to_game,
                     self.driver,
+                    (self.league, self.year)
                     )
             )
 
