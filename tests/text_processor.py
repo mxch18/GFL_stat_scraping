@@ -14,32 +14,17 @@ if __name__ == '__main__':
     kickoff_str = (kickoff_1, kickoff_2, kickoff_3, kickoff_4)
 
     for sentence in kickoff_str:
-        type_of_action = []
-        sentence_lower = sentence.tolower()
-        for word in keywords:
-            if word in sentence:
-                type_of_action.append(word)
+        if not ("no play" in sentence):
+            # extract all patterns from the sentence
+            kickoff_pattern = re.compile(
+             r"[A-Z]\.[A-Za-z\-]+(\skickoff\s)\d+(\syards\sto\sthe\s)[A-Z]+\d+")
+            return_pattern = re.compile(
+             r"[A-Z]\.[A-Za-z\-]+(\sreturn\s)\d+(\syards\sto\sthe\s)[A-Z]+\d+")
+            tackle_pattern = re.compile(
+             r"(?<=(\(|\;))[A-Z]\.[A-Za-z\-]+(?=(\)|\;))")
+            # player pattern preceded by ( or ; and followed by ) or ;
+            extraPoint_pattern = re.compile(
+             r"[A-Z]\.[A-Za-z\-]+\s(kick\sattempt|rush\sattempt)\s(good|failed)")
 
-        if not ("no play" in type_of_action):
-            if "kickoff" in kickoff_str:
-                # look for as many characters A-Z, a-z, - or . preceding " kickoff "
-                player = re.search(
-                    r"[A-Za-z\-\.]+(?=\skickoff\s)", kickoff_str)
-                # look for as many digit character following " kickoff "
-                yards = re.search(r"(?<=\skickoff\s)\d+", kickoff_str)
-                # next landmark
-                teamName_ydLine = re.search(r"[A-Z]+\d+", kickoff_str)[0]
-                # slice the string
-                kickoff_str = kickoff_str[teamName_ydLine.end():]
-                # check for out-of-bounds (not truly necessary as case is covered
-                # by NO PLAY)
-                if "out-of-bounds" in kickoff_str:
-                    print("Unknown case: out-of-bounds kickoff that is not NO PLAY")
-                # ignore on-side kick
-                on_side = kickoff_str.find("on-side kick")
-                if on_side != -1:
-                    kickoff_str = kickoff_str[on_side + len("on-side kick"):]
-                # pass it down
-
-                else:
-                    print("No play call, ignoring")
+        else:
+            print("No play call, ignoring")
