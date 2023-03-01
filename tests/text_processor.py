@@ -28,16 +28,16 @@ if __name__ == '__main__':
     pattern_firstDown = re.compile(
      r"1ST DOWN")
     pattern_pass_complete = re.compile(
-     r"")
+     r"[A-Z]\.[A-Za-z\-]+.*pass complete to [A-Z]\.[A-Za-z\-]+ for \d+ yard(s)* to the [A-Z]+\d+")
     pattern_pass_incomplete = re.compile(
-     r"")
+     r"[A-Z]\.[A-Za-z\-]+.*pass incomplete( to [A-Z]\.[A-Za-z\-]+)*")
 
     pattern_sack = re.compile(
      r"[A-Z]\.[A-Za-z\-]+ sacked for loss of \d+ yard(s)* to the [A-Z]+\d+")
     pattern_punt = re.compile(
      r"")
     pattern_fg = re.compile(
-     r"")
+     r"[A-Z]\.[A-Za-z\-]+ field goal attempt from \d+ (GOOD|MISSED)")
     pattern_recovered = re.compile(
      r"")
     pattern_fairCatch = re.compile(
