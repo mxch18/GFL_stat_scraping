@@ -136,10 +136,17 @@ if __name__ == '__main__':
      (?P<tnyl>[A-Z]+\d+)
     """, re.VERBOSE)
 
+    patterns = (pattern_kickoff, pattern_return,
+                pattern_tackle, pattern_extraPoint, pattern_rush_gain,
+                pattern_rush_loss, pattern_rush_noGain, pattern_firstDown,
+                pattern_pass_complete, pattern_pass_incomplete, pattern_run,
+                pattern_sack, pattern_punt, pattern_fg, pattern_fairCatch,
+                pattern_touchback, pattern_safety, pattern_fumble,
+                pattern_fumble_forced)
+
     with open('./test_sentences.txt', 'r') as sentences_file:
-        sentences = sentences_file.readlines()
-        for sentence in sentences:
-            if not ("no play" in sentence):
+        for sentence in sentences_file:
+            if not ("no play" in sentence.casefold()):
                 pass
             else:
                 print("No play call, ignoring")
