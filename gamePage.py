@@ -2,6 +2,7 @@ from myPage import MyPage
 from datetime import datetime
 from selenium.webdriver.common.by import By
 import re
+from pathlib import Path
 
 
 class GamePage(MyPage):
@@ -38,6 +39,21 @@ class GamePage(MyPage):
         self.date = res.group('date')
         self.date = datetime.strptime(self.date, "%d.%m.%Y")
 
+    def get_game(self):
+        directory = './games/' + \
+            self.season[0] + '/' + str(self.season[1]) + '/'
+        Path(directory).mkdir(parents=True, exist_ok=True)
+
+        filename = self.date.strftime("%Y-%m-%d") + '_' + \
+            self.team1.replace(" ", "_") + '@' + self.team2.replace(" ", "_")
+        with open(directory+filename+'.game', 'w') as file_game:
+            print(f"{self.team1} vs. {self.team2} on {self.date} in {filename}")
+            quarter_tables = self.driver.find_elements(
+                By.XPATH, "//a[@name='start']/../following-sibling::table")
+            for table in quarter_tables:
+                for description in table.find_elements(By.XPATH, "./tbody/tr/td[4]/font"):
+                    file_game.write(description.text+'\n')
+
 
 if __name__ == '__main__':
     from myWebDriver import MyWebDriver
@@ -46,6 +62,6 @@ if __name__ == '__main__':
 
     gp = GamePage("https://stats.gfl.info/gfl/2022/gbshupr.htm",
                   browser, ('gfl', 2022))
-    print(gp)
     gp.go_to()
     print(gp)
+    gp.get_game()
