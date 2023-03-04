@@ -22,9 +22,20 @@ class GamePage(MyPage):
         # fill in the potential blanks with data directly from the page
         # date, location, team1, team2
         page_title = self.driver.find_element(By.XPATH, "//font/h3/font").text
-        self.team1, self.team2, self.date = re.split(
-            "\s(?:vs)\s|\s\(", page_title)
-        self.date = self.date[:-1:1]  # removes last character
+
+        pattern_game_info = re.compile(r"""
+         (?P<team1>.+)
+         \svs\s
+         (?P<team2>.+)
+         \s\(
+         (?P<date>\d\d.\d\d.\d\d\d\d)
+        """, re.VERBOSE)
+        res = pattern_game_info.search(page_title)
+
+        self.team1 = res.group('team1')
+        self.team2 = res.group('team2')
+
+        self.date = res.group('date')
         self.date = datetime.strptime(self.date, "%d.%m.%Y")
 
 
