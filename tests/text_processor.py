@@ -26,9 +26,9 @@ if __name__ == '__main__':
     pattern_extraPoint = re.compile(r"""
     (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)    # Player name
     \s
-    (kick|rush)                                   # Type of extra point
+    (?P<type>kick|rush)                           # Type of extra point
     \sattempt\s
-    (good|failed)                                 # Good or bad attempt
+    (?P<result>good|failed)                       # Good or bad attempt
     """, re.VERBOSE)
 
     # rush
