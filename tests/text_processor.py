@@ -20,7 +20,7 @@ if __name__ == '__main__':
     pattern_tackle = re.compile(r"""
      (?<=(\(|\;))                                  # ( or ; preceding
      (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)    # Player name
-     (?=(\)|\;))")                                 # ; or ) following
+     (?=(\)|\;))                                   # ; or ) following
     """, re.VERBOSE)
 
     pattern_extraPoint = re.compile(r"""
