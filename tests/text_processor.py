@@ -1,11 +1,6 @@
 import re
 
 if __name__ == '__main__':
-    keywords = ('kickoff', 'rush', 'return', 'sacked', 'punt', 'pass',
-                '1st down', 'touchdown', 'field goal attempt', 'fair catch',
-                'kick attempt', 'rush attempt', 'recovered', 'no play',
-                'touchback')
-
     pattern_kickoff = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)    # Kicker name
      \skickoff\s
