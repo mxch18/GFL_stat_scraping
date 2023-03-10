@@ -142,17 +142,39 @@ if __name__ == '__main__':
      (?P<tnyl>[A-Z]+\d+)                                   # Team Name Yard Line
     """, re.VERBOSE)
 
-    patterns = (pattern_kickoff, pattern_return,
-                pattern_tackle, pattern_extraPoint, pattern_rush_gain,
-                pattern_rush_loss, pattern_rush_noGain, pattern_firstDown,
-                pattern_pass_complete, pattern_pass_incomplete, pattern_run,
-                pattern_sack, pattern_punt, pattern_fg, pattern_fairCatch,
-                pattern_touchback, pattern_safety, pattern_fumble,
-                pattern_fumble_forced)
+    patterns = {'kickoff': pattern_kickoff,
+                'return': pattern_return,
+                'tackle': pattern_tackle,
+                'extraPoint': pattern_extraPoint,
+                'rush_gain': pattern_rush_gain,
+                'rush_loss': pattern_rush_loss,
+                'rush_noGain': pattern_rush_noGain,
+                'firstDown': pattern_firstDown,
+                'touchdown': pattern_touchdown,
+                'pass_complete': pattern_pass_complete,
+                'pass_incomplete': pattern_pass_incomplete,
+                'pattern_pass_intercepted': pattern_pass_intercepted,
+                'run': pattern_run,
+                'sack': pattern_sack,
+                'punt': pattern_punt,
+                'fg': pattern_fg,
+                'fairCatch': pattern_fairCatch,
+                'touchback': pattern_touchback,
+                'safety': pattern_safety,
+                'fumble': pattern_fumble,
+                'fumble_forced': pattern_fumble_forced}
 
     with open('./test_sentences.txt', 'r') as sentences_file:
         for sentence in sentences_file:
+            type_of_play = []
             if not ("no play" in sentence.casefold()):
-                pass
+                for type, pattern in patterns.items():
+                    iter_res = pattern.finditer(sentence)
+                    for res in iter_res:
+                        type_of_play.append(
+                            (type, res.groupdict(), res.span())
+                        )
+                type_of_play.sort(key=lambda x: x[2])
+                print(type_of_play)
             else:
                 print("No play call, ignoring")
