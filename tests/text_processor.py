@@ -34,19 +34,19 @@ if __name__ == '__main__':
     # rush
     pattern_rush_gain = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)    # Rusher name
-     \srush.*for\s
+     \srush[^,.]+for\s
      (?P<nb_yards>\d+)                             # Number of Yards gained
      \syard(s)*\sto\sthe\s
      (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
      """, re.VERBOSE)
     pattern_rush_noGain = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)    # Rusher name
-     \srush.*for\sno\sgain\sto\sthe\s
+     \srush[^,.]+for\sno\sgain\sto\sthe\s
      (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
      """, re.VERBOSE)
     pattern_rush_loss = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)    # Rusher name
-     \srush.*for\sloss\sof\s
+     \srush[^,.]+for\sloss\sof\s
      (?P<nb_yards>\d+)                             # Number of Yards lost
      \syard(s)*\sto\sthe\s
      (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     """, re.VERBOSE)
     pattern_pass_incomplete = re.compile(r"""
      (?P<player_passing>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)          # Passer name
-     .*pass\sincomplete\s
+     [^,.]+pass\sincomplete\s
      (to\s(?P<player_receiving>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+))* # Receiver name
     """, re.VERBOSE)
 
