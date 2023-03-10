@@ -52,8 +52,13 @@ if __name__ == '__main__':
      (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
      """, re.VERBOSE)
 
-    pattern_firstDown = re.compile(
-     r"1ST DOWN")
+    pattern_firstDown = re.compile(r"""
+     1ST DOWN
+     """, re.VERBOSE)
+
+    pattern_touchdown = re.compile(r"""
+     TOUCHDOWN
+     """, re.VERBOSE)
 
     pattern_pass_complete = re.compile(r"""
      (?P<player_passing>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)     # Passer name
@@ -68,6 +73,13 @@ if __name__ == '__main__':
      (?P<player_passing>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)          # Passer name
      [^,.]+pass\sincomplete\s
      (to\s(?P<player_receiving>[A-Z]\.([a-z]\.)?[A-Za-z\-]+))* # Receiver name
+    """, re.VERBOSE)
+    pattern_pass_intercepted = re.compile(r"""
+     (?P<player_passing>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)      # Passer name
+     [^,.]+pass\sintercepted\sby\s
+     (?P<player_intercepting>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Interceptor
+     \sat\sthe\s
+     (?P<tnyl>[A-Z]+\d+)                                   # Team Name Yard Line
     """, re.VERBOSE)
 
     pattern_run = re.compile(r"""
