@@ -116,28 +116,28 @@ if __name__ == '__main__':
 
     pattern_fairCatch = re.compile(r"""
      fair\scatch\sby\s
-     (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)    # Player name
+     (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Player name
     """, re.VERBOSE)
     pattern_touchback = re.compile(r"""
      touchback
     """, re.VERBOSE)
 
     pattern_safety = re.compile(r"""
-     (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)    # Player name
+     (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Player name
      \ssafety
     """, re.VERBOSE)
 
     pattern_fumble_forced = re.compile(r"""
      fumble\sforced\sby\s
-     (?P<player>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)            # Player forcing
+     (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)            # Player forcing
     """, re.VERBOSE)
     pattern_fumble = re.compile(r"""
      fumble\sby\s
-     (?P<player_fumbling>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+)   # Player fumbling
+     (?P<player_fumbling>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)   # Player fumbling
      \srecovered\sby\s
      (?P<team_recovering>[A-Z]+)                           # Team recovering
      \s
-     (?P<player_recovering>[A-Z]\.([a-z]\.)?[A-Z][a-z\-]+) # Player recovering
+     (?P<player_recovering>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Player recovering
      \sat\s
      # Team Name Yard Line
      (?P<tnyl>[A-Z]+\d+)
