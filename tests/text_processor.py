@@ -139,8 +139,7 @@ if __name__ == '__main__':
      \s
      (?P<player_recovering>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Player recovering
      \sat\s
-     # Team Name Yard Line
-     (?P<tnyl>[A-Z]+\d+)
+     (?P<tnyl>[A-Z]+\d+)                                   # Team Name Yard Line
     """, re.VERBOSE)
 
     patterns = (pattern_kickoff, pattern_return,
