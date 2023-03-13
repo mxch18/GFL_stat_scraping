@@ -45,7 +45,7 @@ class GamePage(MyPage):
         Path(directory).mkdir(parents=True, exist_ok=True)
 
         filename = self.date.strftime("%Y-%m-%d") + '_' + \
-            self.team1.replace(" ", "_") + '@' + self.team2.replace(" ", "_")
+            '(' + self.team1 + ')' + '@' + '(' + self.team2 + ')'
         with open(directory+filename+'.game', 'w') as file_game:
             print(f"{self.team1} vs. {self.team2} on {self.date} in {filename}")
             quarter_tables = self.driver.find_elements(
