@@ -3,6 +3,7 @@ from datetime import datetime
 from selenium.webdriver.common.by import By
 import re
 from pathlib import Path
+from player import Player
 
 
 class GamePage(MyPage):
@@ -54,6 +55,57 @@ class GamePage(MyPage):
                 for description in table.find_elements(By.XPATH, "./tbody/tr/td[4]/font"):
                     file_game.write(description.text+'\n')
 
+    def get_participation_report(self):
+        participation_report = {}  # {'team': [(Player(), number, isStarter)]}
+
+        # first table is a "normal" table
+        first_tables = self.driver.find_elements(
+            By.XPATH, "//h3/font[contains(text(),'Participation')]/ancestor::table/../following-sibling::p/table/tbody/tr/td/table")
+
+        for table in first_tables:
+            team = table.find_element(
+                By.XPATH, "./tbody/tr[1]/td/font").text.rstrip()
+            starters_row = table.find_elements(
+                By.XPATH, "./tbody/tr[@bgcolor='#ffffff' and count(td)=3]")
+            for starter in starters_row:
+                pos = starter.find_element(
+                    By.XPATH, "./td[1]/font").text.rstrip()
+                num = starter.find_element(
+                    By.XPATH, "./td[2]/font").text.rstrip()
+                name = starter.find_element(
+                    By.XPATH, "./td[3]/font").text.rstrip()
+                first_name, last_name = name.split('.')
+                current_participation = participation_report.get(team, [])
+                current_participation.append(
+                    (Player(first_name, last_name, position=[pos]),
+                     int(num),
+                     1)
+                )
+                participation_report[team] = current_participation
+
+        # second and third tables are just a big string
+        next_tables = self.driver.find_elements(
+            By.XPATH, "//h3/font[contains(text(),'Participation')]/ancestor::table/../following-sibling::p/table/tbody/tr/td/font")
+        pattern_bench = re.compile(r"""
+            (?P<number>\d+)
+            \-
+            (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)
+        """, re.VERBOSE)
+        for table in next_tables:
+            team = table.find_element(By.XPATH, "./b").text.rstrip()
+            bench_str = table.text
+            for res in pattern_bench.finditer(bench_str):
+                first_name, last_name = res.group('player').split('.')
+                current_participation = participation_report.get(team, [])
+                current_participation.append(
+                    (Player(first_name, last_name),
+                     int(res.group('number')),
+                     0)
+                )
+                participation_report[team] = current_participation
+
+        return participation_report
+
 
 if __name__ == '__main__':
     from myWebDriver import MyWebDriver
@@ -65,3 +117,4 @@ if __name__ == '__main__':
     gp.go_to()
     print(gp)
     gp.get_game()
+    print(gp.get_participation_report())
