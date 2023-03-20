@@ -48,7 +48,8 @@ class GamePage(MyPage):
         filename = self.date.strftime("%Y-%m-%d") + '_' + \
             '(' + self.team1 + ')' + '@' + '(' + self.team2 + ')'
         with open(directory+filename+'.game', 'w') as file_game:
-            print(f"{self.team1} vs. {self.team2} on {self.date} in {filename}")
+            print(
+             f"Saving {self.team1} vs. {self.team2} on {self.date} in {filename}")
             quarter_tables = self.driver.find_elements(
                 By.XPATH, "//a[@name='start']/../following-sibling::table")
             for table in quarter_tables:
