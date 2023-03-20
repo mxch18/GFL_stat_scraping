@@ -53,8 +53,24 @@ class GamePage(MyPage):
             quarter_tables = self.driver.find_elements(
                 By.XPATH, "//a[@name='start']/../following-sibling::table")
             for table in quarter_tables:
-                for description in table.find_elements(By.XPATH, "./tbody/tr/td[4]/font"):
-                    file_game.write(description.text+'\n')
+                for row in table.find_elements(By.XPATH, "./tbody/tr[count(td)=4]"):
+                    possession = row.find_element(
+                        By.XPATH, "./td[1]").text.upper()
+
+                    down = togo = ''
+                    down_togo = row.find_element(By.XPATH, "./td[2]").text
+                    if len(down_togo):
+                        down, togo = down_togo.split('-')
+
+                    location = row.find_element(By.XPATH, "./td[3]").text
+                    if len(location):
+                        location = location.split()[1].upper()
+
+                    play = row.find_element(By.XPATH, "./td[4]").text
+
+                    list_to_save = [possession, down, togo, location, play]
+                    text_to_save = '$'.join(list_to_save)
+                    file_game.write(text_to_save+'\n')
 
     def get_participation_report(self):
         participation_report = {}  # {'team': [(Player(), number, isStarter)]}
