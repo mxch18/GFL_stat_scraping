@@ -6,7 +6,7 @@ if __name__ == '__main__':
      \skickoff\s
      (?P<nb_yards>\d+)                             # Number of yards kicked
      \syard(s)*\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                           # Location
     """, re.VERBOSE)
 
     pattern_return = re.compile(r"""
@@ -14,7 +14,7 @@ if __name__ == '__main__':
      \sreturn\s
      (?P<nb_yards>\d+)                             # Number of yards kicked
      \syard(s)*\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                           # Location
      """, re.VERBOSE)
 
     pattern_tackle = re.compile(r"""
@@ -37,19 +37,19 @@ if __name__ == '__main__':
      \srush[^,.]+for\s
      (?P<nb_yards>\d+)                             # Number of Yards gained
      \syard(s)*\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                           # Location
      """, re.VERBOSE)
     pattern_rush_noGain = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Rusher name
      \srush[^,.]+for\sno\sgain\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                           # Location
      """, re.VERBOSE)
     pattern_rush_loss = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Rusher name
      \srush[^,.]+for\sloss\sof\s
      (?P<nb_yards>\d+)                             # Number of Yards lost
      \syard(s)*\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                           # Location
      """, re.VERBOSE)
 
     pattern_firstDown = re.compile(r"""
@@ -67,7 +67,7 @@ if __name__ == '__main__':
      \sfor\s
      (?P<nb_yards>\d+)                                    # Number of Yards
      \syard(s)*\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                                  # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                                  # Location
     """, re.VERBOSE)
     pattern_pass_incomplete = re.compile(r"""
      (?P<player_passing>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)          # Passer name
@@ -79,7 +79,7 @@ if __name__ == '__main__':
      [^,.]+pass\sintercepted\sby\s
      (?P<player_intercepting>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Interceptor
      \sat\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                                   # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                                   # Location
     """, re.VERBOSE)
 
     pattern_run = re.compile(r"""
@@ -87,7 +87,7 @@ if __name__ == '__main__':
      \sfor\s
      (?P<nb_yards>\d+)                             # Number of Yards
      \syard(s)*\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                           # Location
     """, re.VERBOSE)
 
     pattern_sack = re.compile(r"""
@@ -95,7 +95,7 @@ if __name__ == '__main__':
      \ssacked\sfor\sloss\sof\s
      (?P<nb_yards>\d+)                             # Number of Yards
      \syard(s)*\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                           # Location
     """, re.VERBOSE)
 
     pattern_punt = re.compile(r"""
@@ -103,7 +103,7 @@ if __name__ == '__main__':
      \spunt\s
      (?P<nb_yards>\d+)                             # Number of Yards
      \syard(s)*\sto\sthe\s
-     (?P<tnyl>[A-Z]+\d+)                           # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                           # Location
     """, re.VERBOSE)
 
     pattern_fg = re.compile(r"""
@@ -139,7 +139,7 @@ if __name__ == '__main__':
      \s
      (?P<player_recovering>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Player recovering
      \sat\s
-     (?P<tnyl>[A-Z]+\d+)                                   # Team Name Yard Line
+     (?P<location>[A-Z]+\d+)                                   # Location
     """, re.VERBOSE)
 
     patterns = {'kickoff': pattern_kickoff,
