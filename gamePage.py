@@ -3,7 +3,6 @@ from datetime import datetime
 from selenium.webdriver.common.by import By
 import re
 from pathlib import Path
-from player import Player
 
 
 class GamePage(MyPage):
@@ -107,10 +106,10 @@ class GamePage(MyPage):
                     By.XPATH, "./td[2]/font").text.rstrip()
                 name = starter.find_element(
                     By.XPATH, "./td[3]/font").text.rstrip()
-                first_name, last_name = name.split('.')
                 current_participation = participation_report.get(team, [])
                 current_participation.append(
-                    (Player(first_name, last_name, position=[pos]),
+                    (name,
+                     pos,
                      int(num),
                      1)
                 )
@@ -128,10 +127,10 @@ class GamePage(MyPage):
             team = table.find_element(By.XPATH, "./b").text.rstrip()
             bench_str = table.text
             for res in pattern_bench.finditer(bench_str):
-                first_name, last_name = res.group('player').split('.')
                 current_participation = participation_report.get(team, [])
                 current_participation.append(
-                    (Player(first_name, last_name),
+                    (res.group('player'),
+                     '',
                      int(res.group('number')),
                      0)
                 )
