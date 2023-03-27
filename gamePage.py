@@ -40,6 +40,15 @@ class GamePage(MyPage):
         self.date = res.group('date')
         self.date = datetime.strptime(self.date, "%d.%m.%Y")
 
+        info_line = self.driver.find_element(
+            By.XPATH, "//center/b/following-sibling::p/font[contains(text(),'Site')]")
+        pattern_location = re.compile(r"""
+         (?<=Site:).*?(?=•)
+        """, re.VERBOSE)
+
+        res = pattern_location.search(info_line.text)
+        self.location = res.group().strip()
+
     def get_game(self):
         directory = './games/' + \
             self.season[0] + '/' + str(self.season[1]) + '/'
