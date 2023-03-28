@@ -1,20 +1,14 @@
 from myPage import MyPage
 from gamePage import GamePage
-import re
 from selenium.webdriver.common.by import By
+import selenium.common.exceptions as SelExceptions
 
 
 class SeasonPage(MyPage):
-    def __init__(self, url, webdriver):
-        # checking validity of URL
-        league_year = re.findall(r"gfl[0-9]*/[0-9]+", url)[0]
-        if league_year:
-            ly_split = league_year.split("/")
-            self.league = ly_split[0]
-            self.year = ly_split[1]
-            super().__init__(url, webdriver)
-        else:
-            print(f"Invalid season url: {url}")
+    def __init__(self, url, webdriver, league, year):
+        super().__init__(url, webdriver)
+        self.league = league
+        self.year = year
 
     def __str__(self):
         return super().__str__()+f"\nLeague: {self.league}\nYear: {self.year}"
