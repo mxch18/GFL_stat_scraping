@@ -39,6 +39,19 @@ class SeasonPage(MyPage):
 
         return game_pages
 
+    def get_specific_game(self, game_code):
+        game_xpath = f"//h2[text()='Game Results']/following-sibling::table/tbody/tr[@bgcolor='#ffffff']/td[4]/font/a[contains(@href, '{game_code}')]"
+        try:
+            game_link = self.driver.find_element(By.XPATH, game_xpath)
+            return GamePage(
+                game_link.get_attribute('href'),
+                self.driver,
+                (self.league, self.year)
+                )
+        except SelExceptions.NoSuchElementException:
+            print(
+                f"get_specific_game - No such game ({game_code}) in this season ({self.league}/{self.year})")
+
 
 if __name__ == '__main__':
     from myWebDriver import MyWebDriver
