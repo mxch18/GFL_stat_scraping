@@ -58,10 +58,12 @@ class GamePage(MyPage):
         with open(directory+filename+'.game', 'w') as file_game:
             print(
              f"Saving {self.team1} vs. {self.team2} on {self.date} in {filename}")
+            print("Writing game data to file")
             file_game.write(str(self)+'\n')
             file_game.write(
                 "+++++++++++++++++++++++++++++++++++++++++++++++++++++++"+'\n')
 
+            print("Writing play-by-play data to file")
             quarter_tables = self.driver.find_elements(
                 By.XPATH, "//a[@name='start']/../following-sibling::table")
             for table in quarter_tables:
@@ -85,6 +87,7 @@ class GamePage(MyPage):
                     file_game.write(text_to_save+'\n')
             file_game.write(
                 "+++++++++++++++++++++++++++++++++++++++++++++++++++++++"+'\n')
+            print("Writing participation report to file")
             file_game.write(str(self.get_participation_report()))
 
     def get_participation_report(self):
