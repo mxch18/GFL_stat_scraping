@@ -31,10 +31,11 @@ if __name__ == '__main__':
                   'kick_ko_oob', 'kick_ko_tb']
     index_punt = ['punt_nb', 'punt_yds', 'punt_yds_ret', 'punt_yds_net', 'punt_long',
                   'punt_tb', 'punt_in20', 'punt_in20_pct', 'punt_blk']
+    index_misc = ['team', 'number', 'isStarter']
 
     index_stats = [*index_pass, *index_rcv, *index_rush, *index_fmbl, *index_int,
                    *index_tackle, *index_ret_kick, *index_ret_punt, *index_kick,
-                   *index_punt]
+                   *index_punt, *index_misc]
     s1 = pd.Series(0, dtype=object, index=index_stats)
     df["s1"] = s1
     s2 = pd.Series(0, dtype=object, index=index_stats)
