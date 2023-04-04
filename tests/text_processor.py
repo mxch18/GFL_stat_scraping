@@ -104,6 +104,15 @@ if __name__ == '__main__':
      \syard(s)*\sto\sthe\s
      (?P<location>[A-Z]+\d+)                           # Location
     """, re.VERBOSE)
+    pattern_punt_blocked = re.compile(r"""
+     (?P<punter>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Punter name
+     \spunt\sBLOCKED,\srecovered\sby\s[A-Z]+\s
+     (?P<player_recovering>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Recovering name
+     \sat\s
+     (?P<location>[A-Z]+\d+)                           # Location
+     \s\(blocked\sby\s
+     (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Player name
+    """, re.VERBOSE)
 
     pattern_fg = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Player name
@@ -156,6 +165,7 @@ if __name__ == '__main__':
                 'run': pattern_run,
                 'sack': pattern_sack,
                 'punt': pattern_punt,
+                'punt_blk': pattern_punt_blocked,  # ok
                 'fg': pattern_fg,
                 'fairCatch': pattern_fairCatch,
                 'touchback': pattern_touchback,
