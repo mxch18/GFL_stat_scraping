@@ -61,23 +61,23 @@ if __name__ == '__main__':
      """, re.VERBOSE)
 
     pattern_pass_complete = re.compile(r"""
-     (?P<player_passing>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)     # Passer name
+     (?P<passer>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)     # Passer name
      [^,.]+pass\scomplete\sto\s
-     (?P<player_receiving>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)   # Receiver name
+     (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)   # Receiver name
      \sfor\s
      (?P<nb_yards>\d+)                                    # Number of Yards
      \syard(s)*\sto\sthe\s
      (?P<location>[A-Z]+\d+)                                  # Location
     """, re.VERBOSE)
     pattern_pass_incomplete = re.compile(r"""
-     (?P<player_passing>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)          # Passer name
+     (?P<passer>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)          # Passer name
      [^,.]+pass\sincomplete\s
-     (to\s(?P<player_receiving>[A-Z]\.([a-z]\.)?[A-Za-z\-]+))* # Receiver name
+     (to\s(?P<receiver>[A-Z]\.([a-z]\.)?[A-Za-z\-]+))* # Receiver name
     """, re.VERBOSE)
     pattern_pass_intercepted = re.compile(r"""
-     (?P<player_passing>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)      # Passer name
+     (?P<passer>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)      # Passer name
      [^,.]+pass\sintercepted\sby\s
-     (?P<player_intercepting>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Interceptor
+     (?P<interceptor>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Interceptor
      \sat\sthe\s
      (?P<location>[A-Z]+\d+)                                   # Location
     """, re.VERBOSE)
