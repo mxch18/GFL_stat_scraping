@@ -152,7 +152,7 @@ if __name__ == '__main__':
                 'touchdown': pattern_touchdown,
                 'pass_complete': pattern_pass_complete,
                 'pass_incomplete': pattern_pass_incomplete,
-                'pattern_pass_intercepted': pattern_pass_intercepted,
+                'pass_intercepted': pattern_pass_intercepted,
                 'run': pattern_run,
                 'sack': pattern_sack,
                 'punt': pattern_punt,
