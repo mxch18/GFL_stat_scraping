@@ -20,7 +20,7 @@ if __name__ == '__main__':
      """, re.VERBOSE)
 
     pattern_tackle = re.compile(r"""
-     (\;|[A-Z]+\d+\s\(|1ST\sDOWN\s[A-Z]+\s\()
+     (\;|[A-Z]+\d+\s\(|1ST\sDOWN\s[A-Z]+\s\(|yardline\s\(|out-of-bounds\s\()
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)
     """, re.VERBOSE)
 
