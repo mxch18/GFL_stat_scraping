@@ -226,6 +226,8 @@ if __name__ == '__main__':
                 df_game[player[0]] = pd.Series(
                     0, index=index_stats, dtype=object)
                 df_game[player[0]][index_misc] = [team, *list(player[1:])]
+
+        previous_play = (None, None, None)
         for line in sentences_file:
             play_info = line.split('$')
             play_description = play_info[-1]
@@ -251,7 +253,6 @@ if __name__ == '__main__':
                         )
 
                 type_of_play.sort(key=lambda x: x[2])
-                previous_play = (None, None, None)
                 for play in type_of_play:
                     play_type = play[0]
                     if play_type == 'kickoff':
