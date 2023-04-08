@@ -403,6 +403,43 @@ if __name__ == '__main__':
                             df_game[player]['kick_'+cat+'_fgm'] += 1
                             longest = df_game[player]['kick_long']
                             df_game[player]['kick_long'] = yds if yds > longest else longest
+                    elif play_type == 'pass_complete':
+                        yds = int(play[1]['nb_yards']
+                                  ) if play[1]['nb_yards'] else 0
+                        player = play[1]['player']
+                        passer = play[1]['passer']
+
+                        df_game[passer]['pass_att'] += 1
+                        df_game[passer]['pass_cmp'] += 1
+                        df_game[passer]['pass_yds_gain'] += yds
+                        longest = df_game[player]['pass_long']
+                        df_game[player]['pass_long'] = yds if yds > longest else longest
+
+                        df_game[player]['rcv_targets'] += 1
+                        df_game[player]['rcv_recep'] += 1
+                        df_game[player]['rcv_yds_gain'] += yds
+                        longest = df_game[passer]['rcv_long']
+                        df_game[player]['rcv_long'] = yds if yds > longest else longest
+
+                    elif play_type == 'pass_incomplete':
+                        passer = play[1]['passer']
+                        receiver = play[1]['receiver']
+                        breakuper = play[1]['breakuper']
+                        df_game[passer]['pass_att'] += 1
+
+                        if receiver:
+                            df_game[receiver]['rcv_targets'] += 1
+                        if breakuper:
+                            df_game[breakuper]['int_def_pass'] += 1
+
+                    elif play_type == 'pass_intercepted':
+                        passer = play[1]['passer']
+                        interceptor = play[1]['interceptor']
+
+                        df_game[passer]['pass_att'] += 1
+                        df_game[passer]['pass_int'] += 1
+                        df_game[interceptor]['int_nb'] += 1
+
                     previous_play = (play_type, *play[1:])
 
             else:
