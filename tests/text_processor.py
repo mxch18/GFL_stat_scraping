@@ -462,6 +462,13 @@ if __name__ == '__main__':
                         df_game[player]['rush_att_loss'] += 1
                         df_game[player]['rush_yds_loss'] += yds
 
+                    elif play_type == 'sacked':
+                        yds = int(play[1]['nb_yards'])
+                        player = play[1]['player']
+
+                        df_game[player]['pass_sack'] += 1
+                        df_game[player]['pass_yds_loss'] += yds
+
                     previous_play = (play_type, *play[1:])
 
             else:
