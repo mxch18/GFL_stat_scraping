@@ -71,9 +71,10 @@ if __name__ == '__main__':
      ((?P<location>[A-Z]+\d+)|50\syardline)             # Location
     """, re.VERBOSE)
     pattern_pass_incomplete = re.compile(r"""
-     (?P<passer>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)          # Passer name
-     [^,.]+pass\sincomplete\s
-     (to\s(?P<receiver>[A-Z]\.([a-z]\.)?[A-Za-z\-]+))* # Receiver name
+     (?P<passer>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)             # Passer name
+     [^,.]+pass\sincomplete
+     (\sto\s(?P<receiver>[A-Z]\.([a-z]\.)?[A-Za-z\-]+))*  # Receiver name
+     (\s\((?P<breakuper>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)\))*   # Pass breakup
     """, re.VERBOSE)
     pattern_pass_intercepted = re.compile(r"""
      (?P<passer>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)      # Passer name
