@@ -378,6 +378,18 @@ if __name__ == '__main__':
                         player = play[1]['player']
                         df_game[punter]['punt_blk'] += 1
                         df_game[player]['tackle_blk'] += 1
+                    elif play_type == 'extraPoint':
+                        xp_type = play[1]['type']
+                        player = play[1]['player']
+                        result = play[1]['result']
+                        if xp_type == 'rush':
+                            df_game[player]['rush_2pa'] += 1
+                            if result == 'good':
+                                df_game[player]['rush_2pm'] += 1
+                        elif xp_type == 'kick':
+                            df_game[player]['kick_xp_att'] += 1
+                            if result == 'good':
+                                df_game[player]['kick_xp_made'] += 1
                     previous_play = (play_type, *play[1:])
 
             else:
