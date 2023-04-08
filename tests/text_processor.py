@@ -440,6 +440,28 @@ if __name__ == '__main__':
                         df_game[passer]['pass_int'] += 1
                         df_game[interceptor]['int_nb'] += 1
 
+                    elif play_type == 'rush_gain':
+                        yds = int(play[1]['nb_yards'])
+                        player = play[1]['player']
+
+                        df_game[player]['rush_att_gain'] += 1
+                        df_game[player]['rush_yds_gain'] += yds
+
+                        longest = df_game[player]['rush_long']
+                        df_game[player]['rush_long'] = yds if yds > longest else longest
+
+                    elif play_type == 'rush_noGain':
+                        player = play[1]['player']
+
+                        df_game[player]['rush_att_noGain'] += 1
+
+                    elif play_type == 'rush_loss':
+                        yds = int(play[1]['nb_yards'])
+                        player = play[1]['player']
+
+                        df_game[player]['rush_att_loss'] += 1
+                        df_game[player]['rush_yds_loss'] += yds
+
                     previous_play = (play_type, *play[1:])
 
             else:
