@@ -288,14 +288,23 @@ if __name__ == '__main__':
                             players = [players]
                             play_type = 'tackle_solo'
 
+                        # print(
+                        #     f"\nplay:{play}\nprevious:{previous_play}\nassist:{assist}\nplayers:{players}\nplay_type:{play_type}")
                         for player in players:
-                            df_game[player][play_type] += 1
-                            if previous_play[0] == 'sack':
+                            if previous_play[0] == 'sacked':
                                 # it's a sack
-                                df_game[player]['tackle_sk'] = 1 - assist*0.5
+                                df_game[player][play_type] += 1
+                                df_game[player]['tackle_sk'] += 1 - assist*0.5
+                                df_game[player]['tackle_tfl_yds'] += int(
+                                    previous_play[1]['nb_yards'])
                             elif previous_play[0] == 'rush_loss':
                                 # it's a tackle for loss
-                                df_game[player]['tackle_tfl'] = 1 - assist*0.5
+                                df_game[player][play_type] += 1
+                                df_game[player]['tackle_tfl'] += 1 - assist*0.5
+                                df_game[player]['tackle_tfl_yds'] += int(
+                                    previous_play[1]['nb_yards'])
+                            else:
+                                df_game[player][play_type] += 1
                     elif play_type == 'run':
                         player = play[1]['player']
                         yds = int(play[1]['nb_yards'])
