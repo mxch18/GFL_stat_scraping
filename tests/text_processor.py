@@ -312,8 +312,8 @@ if __name__ == '__main__':
                             # means it was a lateral pass
                             df_game[previous_play[1]['player']
                                     ]['pass_lateral'] += 1
-                            df_game[player]['rush_att'] += 1
-                            df_game[player]['rush_yds'] += yds
+                            df_game[player]['rush_att_gain'] += 1
+                            df_game[player]['rush_yds_gain'] += yds
                             longest = df_game[player]['rush_long']
                             df_game[player]['rush_long'] = yds if yds > longest else longest
                         elif previous_play[0] == 'fumble':
