@@ -85,6 +85,7 @@ if __name__ == '__main__':
     """, re.VERBOSE)
 
     pattern_run = re.compile(r"""
+     (?<!to\s)                                  # not preceded by "to "
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Player name
      \sfor\s
      (?P<nb_yards>\d+)                             # Number of Yards
