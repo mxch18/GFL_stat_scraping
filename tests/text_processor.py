@@ -8,7 +8,7 @@ if __name__ == '__main__':
      \skickoff\s
      (?P<nb_yards>\d+)                             # Number of yards kicked
      \syard(s)*\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                           # Location
     """, re.VERBOSE)
 
     pattern_return = re.compile(r"""
@@ -16,7 +16,7 @@ if __name__ == '__main__':
      \sreturn\s
      (?P<nb_yards>\d+)                             # Number of yards kicked
      \syard(s)*\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                           # Location
      """, re.VERBOSE)
 
     pattern_tackle = re.compile(r"""
@@ -38,19 +38,19 @@ if __name__ == '__main__':
      \srush[^,.]+for\s
      (?P<nb_yards>\d+)                             # Number of Yards gained
      \syard(s)*\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                           # Location
      """, re.VERBOSE)
     pattern_rush_noGain = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Rusher name
      \srush[^,.]+for\sno\sgain\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                           # Location
      """, re.VERBOSE)
     pattern_rush_loss = re.compile(r"""
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Rusher name
      \srush[^,.]+for\sloss\sof\s
      (?P<nb_yards>\d+)                             # Number of Yards lost
      \syard(s)*\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                           # Location
      """, re.VERBOSE)
 
     pattern_firstDown = re.compile(r"""
@@ -68,7 +68,7 @@ if __name__ == '__main__':
      \sfor\s
      (?P<nb_yards>\d+)                                    # Number of Yards
      \syard(s)*\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                                  # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)             # Location
     """, re.VERBOSE)
     pattern_pass_incomplete = re.compile(r"""
      (?P<passer>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)          # Passer name
@@ -80,7 +80,7 @@ if __name__ == '__main__':
      [^,.]+pass\sintercepted\sby\s
      (?P<interceptor>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Interceptor
      \sat\sthe\s
-     (?P<location>[A-Z]+\d+)                                   # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)             # Location
     """, re.VERBOSE)
 
     pattern_run = re.compile(r"""
@@ -88,7 +88,7 @@ if __name__ == '__main__':
      \sfor\s
      (?P<nb_yards>\d+)                             # Number of Yards
      \syard(s)*\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)       # Location
     """, re.VERBOSE)
 
     pattern_sack = re.compile(r"""
@@ -96,7 +96,7 @@ if __name__ == '__main__':
      \ssacked\sfor\sloss\sof\s
      (?P<nb_yards>\d+)                             # Number of Yards
      \syard(s)*\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                           # Location
     """, re.VERBOSE)
 
     pattern_punt = re.compile(r"""
@@ -104,14 +104,14 @@ if __name__ == '__main__':
      \spunt\s
      (?P<nb_yards>\d+)                             # Number of Yards
      \syard(s)*\sto\sthe\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                           # Location
     """, re.VERBOSE)
     pattern_punt_blocked = re.compile(r"""
      (?P<punter>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Punter name
      \spunt\sBLOCKED,\srecovered\sby\s[A-Z]+\s
      (?P<player_recovering>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Recovering name
      \sat\s
-     (?P<location>[A-Z]+\d+)                           # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                           # Location
      \s\(blocked\sby\s
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)    # Player name
     """, re.VERBOSE)
@@ -149,7 +149,7 @@ if __name__ == '__main__':
      \s
      (?P<player_recovering>[A-Z]\.([a-z]\.)?[A-Za-z\-]+) # Player recovering
      \sat\s
-     (?P<location>[A-Z]+\d+)                                   # Location
+     ((?P<location>[A-Z]+\d+)|50\syardline)                      # Location
     """, re.VERBOSE)
 
     patterns = {'kickoff': pattern_kickoff,  # ok
