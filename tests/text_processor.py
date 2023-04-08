@@ -185,15 +185,16 @@ if __name__ == '__main__':
     index_rcv = ['rcv_targets', 'rcv_recep', 'rcv_yds_gain', 'rcv_yds_per_recep',
                  'rcv_td', 'rcv_first_down', 'rcv_long', 'rcv_per_game',
                  'rcv_yds_per_game', 'rcv_catch_pct']
-    index_rush = ['rush_att', 'rush_yds', 'rush_td', 'rush_first_down', 'rush_2pm',
-                  'rush_2pa', 'rush_long', 'rush_yds_per_att', 'rush_yds_per_game',
-                  'rush_per_game']
+    index_rush = ['rush_att', 'rush_td', 'rush_first_down', 'rush_2pm', 'rush_2pa',
+                  'rush_long', 'rush_yds_per_att', 'rush_yds_per_game',
+                  'rush_per_game', 'rush_att_gain', 'rush_att_loss', 'rush_att_noGain',
+                  'rush_yds_gain', 'rush_yds_loss', 'rush_yds_net']
     index_fmbl = ['fmbl_ff', 'fmbl_fmbl',
                   'fmbl_recov', 'fmbl_recov_yds', 'fmbl_td']
     index_int = ['int_nb', 'int_yds', 'int_td',
                  'int_long', 'int_def_pass', 'int_tb']
     index_tackle = ['tackle_sk', 'tackle_ast', 'tackle_solo', 'tackle_tfl', 'tackle_qbh',
-                    'tackle_blk_kick', 'tackle_safety', 'tackle_cmb']
+                    'tackle_blk_kick', 'tackle_safety', 'tackle_cmb', 'tackle_tfl_yds']
     index_ret_kick = ['ret_kick_nb', 'ret_kick_yds', 'ret_kick_td', 'ret_kick_long',
                       'ret_kick_yds_per']
     index_ret_punt = ['ret_punt_nb', 'ret_punt_yds', 'ret_punt_td', 'ret_punt_long',
