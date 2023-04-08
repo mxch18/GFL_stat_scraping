@@ -390,6 +390,19 @@ if __name__ == '__main__':
                             df_game[player]['kick_xp_att'] += 1
                             if result == 'good':
                                 df_game[player]['kick_xp_made'] += 1
+                    elif play_type == 'fg':
+                        yds = int(play[1]['nb_yards'])
+                        player = play[1]['player']
+                        result = play[1]['result']
+                        txt = ['0-19', '20-29', '30-39', '40-49', '50']
+                        dist = [19, 29, 39, 40, 100]
+                        cat = next(x for i, x in enumerate(
+                            txt) if yds < dist[i])
+                        df_game[player]['kick_'+cat+'_fga'] += 1
+                        if result == 'GOOD':
+                            df_game[player]['kick_'+cat+'_fgm'] += 1
+                            longest = df_game[player]['kick_long']
+                            df_game[player]['kick_long'] = yds if yds > longest else longest
                     previous_play = (play_type, *play[1:])
 
             else:
