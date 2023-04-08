@@ -66,8 +66,8 @@ if __name__ == '__main__':
      [^,.]+pass\scomplete\sto\s
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)   # Receiver name
      \sfor\s
-     (?P<nb_yards>\d+)                                    # Number of Yards
-     \syard(s)*\sto\sthe\s
+     ((?P<nb_yards>\d+)\syard(s)*|no\sgain)     # Number of Yards
+     \sto\sthe\s
      ((?P<location>[A-Z]+\d+)|50\syardline)             # Location
     """, re.VERBOSE)
     pattern_pass_incomplete = re.compile(r"""
