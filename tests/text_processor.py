@@ -218,15 +218,20 @@ if __name__ == '__main__':
         # read first line (participation report)
         participation_report_str = sentences_file.readline().strip('\n')
         participation_report_dict = ast.literal_eval(participation_report_str)
-        # build pandas game dataframe
+
         df_game = pd.DataFrame()
+        player_series = {}
         for team, roster in participation_report_dict.items():
             for player in roster:
                 # player = (name, position, number, isStarter)
-                df_game[player[0]] = pd.Series(
-                    0, index=index_stats, dtype=object)
-                df_game[player[0]][index_misc] = [team, *list(player[1:])]
-
+                # build dict of Series
+                numeric_stats = pd.Series(0, index=index_stats, dtype=object)
+                non_num_stats = pd.Series([team, *list(player[1:])],
+                                          index=index_misc, dtype=object)
+                player_series[player[0]] = pd.concat(
+                    [numeric_stats, non_num_stats])
+        # build pandas game dataframe
+        df_game = pd.DataFrame(player_series)
         previous_play = (None, None, None)
         for line in sentences_file:
             play_info = line.split('$')
