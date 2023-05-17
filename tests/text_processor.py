@@ -184,7 +184,7 @@ if __name__ == '__main__':
                   'pass_yds_per_cmp']
     index_rcv = ['rcv_targets', 'rcv_recep', 'rcv_yds_gain', 'rcv_yds_per_recep',
                  'rcv_td', 'rcv_first_down', 'rcv_long', 'rcv_per_game',
-                 'rcv_yds_per_game', 'rcv_catch_pct']
+                 'rcv_yds_per_game', 'rcv_catch_pct', 'rcv_yds_loss']
     index_rush = ['rush_att', 'rush_td', 'rush_first_down', 'rush_2pm', 'rush_2pa',
                   'rush_long', 'rush_yds_per_att', 'rush_yds_per_game',
                   'rush_per_game', 'rush_att_gain', 'rush_att_loss', 'rush_att_noGain',
@@ -416,15 +416,20 @@ if __name__ == '__main__':
 
                         df_game[passer]['pass_att'] += 1
                         df_game[passer]['pass_cmp'] += 1
-                        df_game[passer]['pass_yds_gain'] += yds
-                        longest = df_game[player]['pass_long']
-                        df_game[player]['pass_long'] = yds if yds > longest else longest
-
                         df_game[player]['rcv_targets'] += 1
                         df_game[player]['rcv_recep'] += 1
-                        df_game[player]['rcv_yds_gain'] += yds
-                        longest = df_game[passer]['rcv_long']
-                        df_game[player]['rcv_long'] = yds if yds > longest else longest
+
+                        gain_loss = 'loss' if play[1]['for_loss'] else 'gain'
+
+                        df_game[passer]['pass_yds_' + gain_loss] += yds
+                        df_game[player]['rcv_yds_' + gain_loss] += yds
+
+                        if not play[1]['for_loss']:
+                            longest = df_game[passer]['pass_long']
+                            df_game[passer]['pass_long'] = yds if yds > longest else longest
+
+                            longest = df_game[player]['rcv_long']
+                            df_game[player]['rcv_long'] = yds if yds > longest else longest
 
                     elif play_type == 'pass_incomplete':
                         passer = play[1]['passer']
