@@ -339,7 +339,7 @@ if __name__ == '__main__':
                         df_game[player]['tackle_safety'] += 1
                     elif play_type == 'firstDown':
                         if previous_play[0] == 'pass_complete':
-                            df_game[previous_play[1]['player']
+                            df_game[previous_play[1]['passer']
                                     ]['pass_first_down'] += 1
                             df_game[previous_play[1]['player']
                                     ]['rcv_first_down'] += 1
