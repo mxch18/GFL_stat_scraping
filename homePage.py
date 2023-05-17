@@ -20,8 +20,8 @@ class HomePage(MyPage):
                 link_league = ly_split[0]
                 link_year = int(ly_split[1])
 
-                nok_league = league and link_league != league
-                nok_year = year and link_year != year
+                nok_league = league and link_league not in league
+                nok_year = year and link_year not in year
 
                 if nok_league or nok_year:
                     pass
