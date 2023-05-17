@@ -485,8 +485,8 @@ if __name__ == '__main__':
 
             else:
                 print("No play call, ignoring")
-                print("No play call, ignoring")
-        print(df_game['M.Achiepi'].to_string())
-        print(df_game['N.Lawrence'].to_string())
-        print(df_game['C.Cranston'].to_string())
-        print(df_game['S.Dardour'].to_string())
+        # Compute team scores
+        # print(df_game.loc[:, df_game.loc['team']
+        #       == 'New Yorker Lions Br.'].T.sum().to_string())
+        print(df_game.loc[:, df_game.loc['team']
+              == 'Cologne Crocodiles'].T.sum().to_string())
