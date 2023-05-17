@@ -54,7 +54,7 @@ if __name__ == '__main__':
      """, re.VERBOSE)
 
     pattern_firstDown = re.compile(r"""
-     1ST DOWN
+     1ST\sDOWN
      """, re.VERBOSE)
 
     pattern_touchdown = re.compile(r"""
