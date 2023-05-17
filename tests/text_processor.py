@@ -279,7 +279,8 @@ if __name__ == '__main__':
                         else:
                             print(f"Return on {previous_play[0]}, skipping")
                             continue
-                        df_game[player][play_type+'_nb'] += 1
+                        if not play_type == 'int':
+                            df_game[player][play_type+'_nb'] += 1
                         df_game[player][play_type+'_yds'] += yds
 
                         longest = df_game[player][play_type+'_long']
