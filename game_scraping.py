@@ -6,8 +6,9 @@ import argparse
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-l", "--league", help="select between gfl and gfl2", choices=['gfl', 'gfl2'])
-    parser.add_argument("-y", "--year", help="select a year", type=int)
+        "-l", "--league", help="select gfl and/or gfl2", default=['gfl', 'gfl2'], nargs="*")
+    parser.add_argument(
+        "-y", "--year", help="select a year", type=int, nargs="*")
     parser.add_argument(
         "-g", "--game", help="select a game, format is the same as game URL")
     args = parser.parse_args()
