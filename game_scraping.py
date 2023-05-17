@@ -1,5 +1,6 @@
 from myWebDriver import MyWebDriver
 from homePage import HomePage
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import argparse
 
 if __name__ == '__main__':
@@ -11,7 +12,10 @@ if __name__ == '__main__':
         "-g", "--game", help="select a game, format is the same as game URL")
     args = parser.parse_args()
 
-    browser = MyWebDriver()
+    # set headless to 1
+    options = FirefoxOptions()
+    options.headless = True
+    browser = MyWebDriver(options=options)
 
     try:
         hp = HomePage("https://stats.gfl.info/", browser)
