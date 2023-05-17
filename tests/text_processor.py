@@ -480,7 +480,8 @@ if __name__ == '__main__':
                         df_game[player]['pass_sack'] += 1
                         df_game[player]['pass_yds_loss'] += yds
 
-                    previous_play = (play_type, *play[1:])
+                    if not play_type == 'firstDown':  # first downs don't update state
+                        previous_play = (play_type, *play[1:])
 
             else:
                 print("No play call, ignoring")
