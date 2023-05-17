@@ -66,7 +66,7 @@ if __name__ == '__main__':
      [^,.]+pass\scomplete\sto\s
      (?P<player>[A-Z]\.([a-z]\.)?[A-Za-z\-]+)   # Receiver name
      \sfor\s
-     ((?P<nb_yards>\d+)\syard(s)*|no\sgain)     # Number of Yards
+     ((?P<for_loss>loss\sof\s)?(?P<nb_yards>\d+)\syard(s)*|no\sgain) # Yards number
      \sto\sthe\s
      ((?P<location>[A-Z]+\d+)|50\syardline)             # Location
     """, re.VERBOSE)
