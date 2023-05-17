@@ -210,7 +210,7 @@ if __name__ == '__main__':
 
     index_stats = [*index_pass, *index_rcv, *index_rush, *index_fmbl, *index_int,
                    *index_tackle, *index_ret_kick, *index_ret_punt, *index_kick,
-                   *index_punt, *index_misc]
+                   *index_punt]
 
     filename = '../games/gfl/2022/2022-08-27_(Duesseldorf Panther)@(Potsdam Royals).game'
 
