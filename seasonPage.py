@@ -21,13 +21,13 @@ class SeasonPage(MyPage):
 
     def get_games(self):
         game_pages = []  # list of GamePage objects
-        game_links = self.driver.find_elements(
+        game_rows = self.driver.find_elements(
             By.XPATH,
-            "//h2[text()='Game Results']/following-sibling::table/tbody/tr[@bgcolor='#ffffff']"
+            "//h2[text()='Game Results']/following-sibling::table/tbody/tr[@bgcolor='#ffffff' and count(td)=4]"
         )
 
-        for link in game_links:
-            link_to_game = link.find_element(
+        for row in game_rows:
+            link_to_game = row.find_element(
                 By.XPATH, "./td[4]/font/a").get_attribute('href')
             game_pages.append(
                 GamePage(
