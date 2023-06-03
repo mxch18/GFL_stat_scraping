@@ -114,12 +114,17 @@ class GamePage(MyPage):
                 name = starter.find_element(
                     By.XPATH, "./td[3]/font").text.rstrip()
                 current_participation = participation_report.get(team, [])
-                current_participation.append(
-                    (name,
-                     pos,
-                     int(num),
-                     1)
-                )
+                try:
+                    current_participation.append(
+                        (name,
+                         pos,
+                         int(num),
+                         1)
+                    )
+                except:
+                    print(f"Name:{name if len(name) else 'NONE'}, "
+                          f"Num:{num if len(num) else 'NONE'}, "
+                          f"Pos:{pos if len(pos) else 'NONE'}")
                 participation_report[team] = current_participation
 
         # second and third tables are just a big string
@@ -151,8 +156,8 @@ if __name__ == '__main__':
 
     browser = MyWebDriver()
 
-    gp = GamePage("https://stats.gfl.info/gfl/2022/gbshupr.htm",
-                  browser, ('gfl', 2022))
+    gp = GamePage("https://stats.gfl.info/gfl/2009/vfkbhss.htm",
+                  browser, ('gfl', 2009))
     gp.go_to()
     print(gp)
     gp.get_game()
