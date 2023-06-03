@@ -213,7 +213,8 @@ if __name__ == '__main__':
                    *index_tackle, *index_ret_kick, *index_ret_punt, *index_kick,
                    *index_punt]
 
-    filename = '../games/gfl/2022/2022-08-27_(Duesseldorf Panther)@(Potsdam Royals).game'
+    # filename = '../games/gfl/2022/2022-08-27_(Duesseldorf Panther)@(Potsdam Royals).game'
+    filename = '../games/gfl/2022/2022-08-14_(New Yorker Lions Br.)@(Cologne Crocodiles).game'
 
     with open(filename, 'r') as sentences_file:
         # read first line (participation report)
@@ -484,10 +485,13 @@ if __name__ == '__main__':
                     if not play_type == 'firstDown':  # first downs don't update state
                         previous_play = (play_type, *play[1:])
 
-            else:
-                print("No play call, ignoring")
         # Compute team scores
-        # print(df_game.loc[:, df_game.loc['team']
-        #       == 'New Yorker Lions Br.'].T.sum().to_string())
-        print(df_game.loc[:, df_game.loc['team']
-              == 'Cologne Crocodiles'].T.sum().to_string())
+        # t = 'Cologne Crocodiles'
+        t = 'New Yorker Lions Br.'
+        df_game = df_game.T  # pandas is best used with column selection
+        df_game['rush_att'] = df_game['rush_att_gain'] + \
+            df_game['rush_att_loss']+df_game['rush_att_noGain']
+        print(t)
+        df_t = df_game.query(f'team == "{t}"')
+        print(f"{df_t['tackle_sk'].sum()}-{df_t['tackle_sk_yds'].sum()}")
+        # print(df_game['D.McCants '][''])
