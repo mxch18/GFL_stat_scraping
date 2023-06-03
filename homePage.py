@@ -14,9 +14,9 @@ class HomePage(MyPage):
             By.XPATH, '//table/tbody/tr/td/a[@href]')
         for link in season_links:
             league_year = re.findall(
-                r"gfl[0-9]*/[0-9]+", link.get_attribute('href'))[0]
+                r"gfl[0-9]*/[0-9]+", link.get_attribute('href'))
             if league_year:
-                ly_split = league_year.split("/")
+                ly_split = league_year[0].split("/")
                 link_league = ly_split[0]
                 link_year = int(ly_split[1])
 
