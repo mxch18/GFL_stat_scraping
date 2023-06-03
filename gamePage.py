@@ -3,6 +3,7 @@ from datetime import datetime
 from selenium.webdriver.common.by import By
 import re
 from pathlib import Path
+from random import randrange
 
 
 class GamePage(MyPage):
@@ -33,11 +34,16 @@ class GamePage(MyPage):
         """, re.VERBOSE)
         res = pattern_game_info.search(page_title)
 
-        self.team1 = res.group('team1')
-        self.team2 = res.group('team2')
+        try:
+            self.team1 = res.group('team1')
+            self.team2 = res.group('team2')
 
-        self.date = res.group('date')
-        self.date = datetime.strptime(self.date, "%d.%m.%Y")
+            self.date = res.group('date')
+            self.date = datetime.strptime(self.date, "%d.%m.%Y")
+        except:
+            self.date = datetime.strptime(
+                f"{randrange(1,28)}.{randrange(1,12)}.{self.season[1]}", "%d.%m.%Y")
+            print("Game info pattern not found on page")
 
         info_line = self.driver.find_element(
             By.XPATH, "//center/b/following-sibling::p/font[contains(text(),'Site')]")
