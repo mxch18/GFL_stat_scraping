@@ -157,25 +157,25 @@ if __name__ == '__main__':
     patterns = {'kickoff': pattern_kickoff,  # ok
                 'return': pattern_return,  # ok
                 'tackle': pattern_tackle,  # ok
-                'extraPoint': pattern_extraPoint,
-                'rush_gain': pattern_rush_gain,
-                'rush_loss': pattern_rush_loss,
-                'rush_noGain': pattern_rush_noGain,
+                'extraPoint': pattern_extraPoint,  # ok
+                'rush_gain': pattern_rush_gain,  # ok
+                'rush_loss': pattern_rush_loss,  # ok
+                'rush_noGain': pattern_rush_noGain,  # ok
                 'firstDown': pattern_firstDown,  # ok
                 'touchdown': pattern_touchdown,  # ok
-                'pass_complete': pattern_pass_complete,
-                'pass_incomplete': pattern_pass_incomplete,
-                'pass_intercepted': pattern_pass_intercepted,
+                'pass_complete': pattern_pass_complete,  # ok
+                'pass_incomplete': pattern_pass_incomplete,  # ok
+                'pass_intercepted': pattern_pass_intercepted,  # ok
                 'run': pattern_run,  # ok
-                'sacked': pattern_sack,
+                'sacked': pattern_sack,  # ok
                 'punt': pattern_punt,  # ok
                 'punt_blk': pattern_punt_blocked,  # ok
-                'fg': pattern_fg,
-                'fairCatch': pattern_fairCatch,
+                'fg': pattern_fg,  # ok
+                'fairCatch': pattern_fairCatch,  # ok
                 'touchback': pattern_touchback,  # ok
                 'safety': pattern_safety,  # ok
-                'fumble': pattern_fumble, # ok
-                'fumble_forced': pattern_fumble_forced} # ok
+                'fumble': pattern_fumble,  # ok
+                'fumble_forced': pattern_fumble_forced}  # ok
 
     index_pass = ['pass_cmp', 'pass_att', 'pass_cmp_pct', 'pass_yds_gain',
                   'pass_td', 'pass_td_pct', 'pass_int', 'pass_int_pct',
