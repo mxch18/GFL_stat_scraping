@@ -11,6 +11,8 @@ if __name__ == '__main__':
         "-y", "--year", help="select a year", type=int, nargs="*")
     parser.add_argument(
         "-g", "--game", help="select a game, format is the same as game URL")
+    parser.add_argument(
+        "-o", "--overwrite", help="overwrite existing games", action='store_true')
     args = parser.parse_args()
 
     # set headless to 1
@@ -34,6 +36,6 @@ if __name__ == '__main__':
             for game in games:
                 if game:
                     game.go_to()
-                    game.get_game()
+                    game.get_game(args.overwrite)
     finally:
         browser.quit()

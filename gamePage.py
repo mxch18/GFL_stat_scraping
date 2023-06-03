@@ -48,42 +48,45 @@ class GamePage(MyPage):
         res = pattern_location.search(info_line.text)
         self.location = res.group().strip()
 
-    def get_game(self):
+    def get_game(self, overwrite=1):
         directory = './games/' + \
             self.season[0] + '/' + str(self.season[1]) + '/'
         Path(directory).mkdir(parents=True, exist_ok=True)
 
         filename = self.date.strftime("%Y-%m-%d") + '_' + \
             '(' + self.team1 + ')' + '@' + '(' + self.team2 + ')'
-        with open(directory+filename+'.game', 'w') as file_game:
-            print(
-             f"Saving {self.team1} vs. {self.team2} on {self.date} in {filename}")
+        if overwrite or not Path(directory+filename+'.game').is_file():
+            with open(directory+filename+'.game', 'w') as file_game:
+                print(
+                 f"Saving {self.team1} vs. {self.team2} on {self.date} in {filename}")
 
-            print("Writing participation report to file")
-            file_game.write(str(self.get_participation_report())+"\n")
+                print("Writing participation report to file")
+                file_game.write(str(self.get_participation_report())+"\n")
 
-            print("Writing play-by-play data to file")
-            quarter_tables = self.driver.find_elements(
-                By.XPATH, "//a[@name='start']/../following-sibling::table")
-            for table in quarter_tables:
-                for row in table.find_elements(By.XPATH, "./tbody/tr[count(td)=4]"):
-                    possession = row.find_element(
-                        By.XPATH, "./td[1]").text.upper()
+                print("Writing play-by-play data to file")
+                quarter_tables = self.driver.find_elements(
+                    By.XPATH, "//a[@name='start']/../following-sibling::table")
+                for table in quarter_tables:
+                    for row in table.find_elements(By.XPATH, "./tbody/tr[count(td)=4]"):
+                        possession = row.find_element(
+                            By.XPATH, "./td[1]").text.upper()
 
-                    down = togo = ''
-                    down_togo = row.find_element(By.XPATH, "./td[2]").text
-                    if len(down_togo):
-                        down, togo = down_togo.split('-')
+                        down = togo = ''
+                        down_togo = row.find_element(By.XPATH, "./td[2]").text
 
-                    location = row.find_element(By.XPATH, "./td[3]").text
-                    if len(location):
-                        location = location.split()[1].upper()
+                        if len(down_togo):
+                            down, togo = down_togo.split('-', 1)
+                        location = row.find_element(By.XPATH, "./td[3]").text
+                        if len(location):
+                            location = location.split()[1].upper()
 
-                    play = row.find_element(By.XPATH, "./td[4]").text
+                        play = row.find_element(By.XPATH, "./td[4]").text
 
-                    list_to_save = [possession, down, togo, location, play]
-                    text_to_save = '$'.join(list_to_save)
-                    file_game.write(text_to_save+'\n')
+                        list_to_save = [possession, down, togo, location, play]
+                        text_to_save = '$'.join(list_to_save)
+                        file_game.write(text_to_save+'\n')
+        else:
+            print('File exists and not overwriting')
 
     def get_participation_report(self):
         participation_report = {}  # {'team': [(Player(), number, isStarter)]}
