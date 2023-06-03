@@ -325,7 +325,7 @@ if __name__ == '__main__':
                             df_game[player]['rush_long'] = yds if yds > longest else longest
                         elif previous_play[0] == 'fumble':
                             # it's a fumble return
-                            df_game[player]['rush_att'] += 1
+                            df_game[player]['rush_att_gain'] += 1
                             df_game[player]['fmbl_recov_yds'] += int(yds)
                             play_type = 'ret_fmbl'
                     elif play_type == 'fumble':
