@@ -194,7 +194,8 @@ if __name__ == '__main__':
     index_int = ['int_nb', 'int_yds', 'int_td',
                  'int_long', 'int_def_pass', 'int_tb']
     index_tackle = ['tackle_sk', 'tackle_ast', 'tackle_solo', 'tackle_tfl', 'tackle_qbh',
-                    'tackle_blk_kick', 'tackle_safety', 'tackle_cmb', 'tackle_tfl_yds']
+                    'tackle_blk_kick', 'tackle_safety', 'tackle_cmb', 'tackle_tfl_yds',
+                    'tackle_sk_yds']
     index_ret_kick = ['ret_kick_nb', 'ret_kick_yds', 'ret_kick_td', 'ret_kick_long',
                       'ret_kick_yds_per']
     index_ret_punt = ['ret_punt_nb', 'ret_punt_yds', 'ret_punt_td', 'ret_punt_long',
@@ -301,7 +302,7 @@ if __name__ == '__main__':
                                 # it's a sack
                                 df_game[player][play_type] += 1
                                 df_game[player]['tackle_sk'] += 1 - assist*0.5
-                                df_game[player]['tackle_tfl_yds'] += int(
+                                df_game[player]['tackle_sk_yds'] += int(
                                     previous_play[1]['nb_yards'])
                             elif previous_play[0] == 'rush_loss':
                                 # it's a tackle for loss
