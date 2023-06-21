@@ -75,16 +75,14 @@ if __name__ == '__main__':
 
     sql_create_games_table = """CREATE TABLE IF NOT EXISTS Games (
             id_teamHome integer NOT NULL,
-            name_teamHome varchar(50) NOT NULL,
             id_teamAway integer NOT NULL,
-            name_teamAway varchar(50) NOT NULL,
             game_date date NOT NULL,
             league varchar(4) NOT NULL,
             idx_win tinyint NOT NULL,
             url_boxscore varchar(100),
             CONSTRAINT PK_Games PRIMARY KEY (id_teamHome, id_teamAway, game_date),
-            CONSTRAINT FK_Games_teamHome FOREIGN KEY (id_teamHome, name_teamHome) REFERENCES Teams(id, name),
-            CONSTRAINT FK_Games_teamAway FOREIGN KEY (id_teamAway, name_teamAway) REFERENCES Teams(id, name)
+            CONSTRAINT FK_Games_teamHome FOREIGN KEY id_teamHome REFERENCES Teams(id),
+            CONSTRAINT FK_Games_teamAway FOREIGN KEY id_teamAway REFERENCES Teams(id)
             );"""
 
     sql_create_performance_table = """"""
