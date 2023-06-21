@@ -59,10 +59,18 @@ if __name__ == '__main__':
 
     sql_create_team_table = """CREATE TABLE IF NOT EXISTS Teams (
         id integer NOT NULL,
-        season_year year NOT NULL,
-        name varchar(50) NOT NULL,
-        city varchar(50),
-        CONSTRAINT PK_Teams PRIMARY KEY (id, season_year)
+        current_name varchar(50) NOT NULL,
+        CONSTRAINT PK_Teams PRIMARY KEY (id)
+        );"""
+
+    sql_create_teamsHistory_table = """CREATE TABLE IF NOT EXISTS TeamsHistory (
+        team_id integer NOT NULL,
+        team_name varchar(50) NOT NULL,
+        team_city varchar(50) NOT NULL,
+        start_year year NOT NULL,
+        end_year year,
+        CONSTRAINT PK_TeamsHistory PRIMARY KEY (team_id, start_year)
+        CONSTRAINT FK_Games_team_id FOREIGN KEY team_id REFERENCES Teams(id)
         );"""
 
     sql_create_games_table = """CREATE TABLE IF NOT EXISTS Games (
